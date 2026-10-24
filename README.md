@@ -20,7 +20,19 @@ GROBID, use a computer with 16 GB.
 
 ## Install
 
-Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (on
+On Windows, run this in PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/scienceverse/metacheck_platform_docker/main/install.ps1 | iex
+```
+
+The installer ([install.ps1](install.ps1)) asks whether to install Docker
+Desktop, GROBID and Ollama (pressing Enter means no), and for a Mistral API key
+(Enter skips it; you can add one later). It puts everything in a folder
+`metacheck` in your user folder, with `start-metacheck.cmd` and
+`stop-metacheck.cmd`, and starts metacheck.
+
+By hand, on any system: install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (on
 Linux, Docker Engine) and start it. Put [compose.yaml](compose.yaml) in a new
 folder, and next to it a file `.env` with your choices ([example.env](example.env)
 lists them; an empty `.env` is the lightest installation). In that folder, run:
