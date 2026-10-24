@@ -112,7 +112,7 @@ Heading "3. Language model for the power check"
 Say "The power check can use a language model to check whether power analyses report all"
 Say "the required information. Ollama runs a model on this computer, so the paragraphs stay"
 Say "here; it needs about 3.5 GB of disk space and memory (on the graphics card, if there is one)."
-$useOllama = Ask "Install Ollama with the model $Model?" $Ollama
+$useOllama = Ask "Install Ollama with the model ${Model}?" $Ollama
 $mistral = ""
 if ($useOllama) {
   if (-not (Have "ollama")) {
