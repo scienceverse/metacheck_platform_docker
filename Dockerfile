@@ -34,8 +34,14 @@ FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive TZ=UTC LANG=C.UTF-8
 
-# tini starts the programs and passes a stop signal on to them.
-RUN apt-get update && \
+# apt tries a download again when a server does not answer (on GitHub's build
+# machines, r2u's server once timed out), and every apt-get update below stops
+# the build when a package list cannot be downloaded, instead of failing later
+# with "Unable to locate package". tini starts the programs and passes a stop
+# signal on to them.
+RUN printf 'Acquire::Retries "5";\nAcquire::http::Timeout "60";\nAcquire::https::Timeout "60";\nAPT::Update::Error-Mode "any";\n' \
+      > /etc/apt/apt.conf.d/80-metacheck && \
+    apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates curl tini && \
     rm -rf /var/lib/apt/lists/*
 
