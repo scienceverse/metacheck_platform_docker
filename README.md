@@ -32,6 +32,20 @@ Desktop, GROBID and Ollama (pressing Enter means no), and for a Mistral API key
 `metacheck` in your user folder, with `start-metacheck.cmd` and
 `stop-metacheck.cmd`, and starts metacheck.
 
+On macOS and Linux, run this in a terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/scienceverse/metacheck_platform_docker/main/install.sh | bash
+```
+
+The installer ([install.sh](install.sh)) asks the same questions. On macOS it
+installs Docker Desktop and Ollama with [Homebrew](https://brew.sh), and the
+start and stop files are `start-metacheck.command` and `stop-metacheck.command`
+(double-click to run them). On Linux it installs Docker Engine and Ollama with
+their own install scripts, and Ollama listens on Docker's network address
+(172.17.0.1) only. The macOS and Linux installer has not been tested on those
+systems yet.
+
 By hand, on any system: install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (on
 Linux, Docker Engine) and start it. Put [compose.yaml](compose.yaml) in a new
 folder, and next to it a file `.env` with your choices ([example.env](example.env)
