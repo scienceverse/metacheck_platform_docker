@@ -61,7 +61,8 @@ say ""
 printf '\033[36m%s\033[0m\n' "metacheck on your own computer"
 say "This installs metacheck's website and paper report app on this computer, in Docker."
 say "The lightest installation needs little memory, but sends some things to external servers:"
-say "  - a PDF is sent to the GROBID server of Eindhoven University of Technology (TU/e) to be converted;"
+say "  - a PDF is sent to the GROBID server of Eindhoven University of Technology (TU/e) to be converted,"
+say "    or, when that server does not answer, to metacheck's server on SURF Research Cloud (the Netherlands);"
 say "  - the power check uses no language model, or Mistral (EU) with your own API key."
 say "Each part you add below does more on this computer instead. Press Enter for 'no'."
 
@@ -120,7 +121,8 @@ say "Docker runs."
 
 # ---- GROBID -----------------------------------------------------------------
 heading "2. GROBID on this computer (converts PDFs)"
-say "Without it, a PDF is sent to TU/e's GROBID server (GDPR compliant) to be converted."
+say "Without it, a PDF is sent to TU/e's GROBID server (GDPR compliant) to be converted, or, when"
+say "that server does not answer, to metacheck's server on SURF Research Cloud."
 say "With it, PDFs stay on this computer, but GROBID needs about 4 GB of memory more"
 say "(a computer with 16 GB of memory; this one has $MEM_GB GB)."
 USE_GROBID=no

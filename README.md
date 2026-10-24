@@ -9,7 +9,7 @@ own computer:
 | Part | Without it | With it | Memory |
 |---|---|---|---|
 | metacheck (always) | | website, web interface, paper report app, and running a repository's code | 0.3 GB idle, 1.6 GB with two jobs at once |
-| GROBID | a PDF is sent to TU/e's GROBID server (GDPR compliant) for conversion | PDFs are converted on your computer | 3.7 GB more |
+| GROBID | a PDF is sent to TU/e's GROBID server (GDPR compliant) for conversion, or, when that server does not answer, to metacheck's server on SURF Research Cloud (the Netherlands); set `METACHECK_CONVERT_BACKUP=` in `.env` to never use the SURF server | PDFs are converted on your computer | 3.7 GB more |
 | language model | the power check works without a model | Ollama on your computer (paragraphs stay on your computer), or Mistral (EU) with your own API key (paragraphs about statistical power are sent to Mistral) | Ollama: 3.5 GB, on a graphics card if you have one |
 
 Memory measured with Docker Desktop on Windows (October 2026). Docker Desktop

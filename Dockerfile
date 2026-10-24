@@ -126,11 +126,14 @@ COPY --chmod=755 start.sh /usr/local/bin/start.sh
 
 # Settings the app and the web interface read (see app/app.R and api/ in
 # surf-research-cloud). The lightest installation: PDFs to TU/e's GROBID
-# server, no language model. The installer's .env (see compose.yaml) adds the
+# server, and to metacheck's server on SURF Research Cloud when that one does
+# not answer (METACHECK_CONVERT_BACKUP); no language model. The installer's
+# .env (see compose.yaml) adds the
 # GROBID container (GROBID_LOCAL_URL and METACHECK_GROBID_URL), Ollama
 # (OLLAMA_BASE_URL) or the user's Mistral key (MISTRAL_API_KEY).
 ENV METACHECK_LOCAL=true \
     METACHECK_GROBID_URL=https://grobid.hti.ieis.tue.nl \
+    METACHECK_CONVERT_BACKUP=surf \
     METACHECK_SANDBOX=process \
     METACHECK_API_JOBS=/var/lib/metacheck-api/jobs \
     METACHECK_API_WORKERS=2 \

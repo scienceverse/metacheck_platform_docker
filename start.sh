@@ -28,9 +28,18 @@ nginx_pid=$!
         echo "PDFs: converted by the GROBID container on this computer"
       else
         echo "PDFs: sent to the GROBID server at ${METACHECK_GROBID_URL} for conversion"
+        surf="${SURF_API_URL:-https://metacheckserve.metacheck.src.surf-hosted.nl/api}"
+        if [ "${METACHECK_CONVERT_BACKUP:-}" = "surf" ]; then
+          echo "      (when it does not answer: metacheck's server on SURF Research Cloud)"
+        fi
         if ! curl -sf -m 20 "${METACHECK_GROBID_URL}/api/isalive" > /dev/null; then
-          echo "WARNING: that GROBID server does not answer now, so PDFs cannot be converted;"
-          echo "         try again later, or switch on GROBID on this computer (see the README)"
+          if [ "${METACHECK_CONVERT_BACKUP:-}" = "surf" ] && curl -sf -m 20 "$surf/health" > /dev/null; then
+            echo "NOTE: that GROBID server does not answer now; PDFs go to metacheck's server on"
+            echo "      SURF Research Cloud instead"
+          else
+            echo "WARNING: that GROBID server does not answer now, so PDFs cannot be converted;"
+            echo "         try again later, or switch on GROBID on this computer (see the README)"
+          fi
         fi
       fi
       if [ -n "${OLLAMA_BASE_URL:-}" ]; then

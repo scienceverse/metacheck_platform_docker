@@ -57,7 +57,8 @@ Say ""
 Say "metacheck on your own computer" -ForegroundColor Cyan
 Say "This installs metacheck's website and paper report app on this computer, in Docker."
 Say "The lightest installation needs little memory, but sends some things to external servers:"
-Say "  - a PDF is sent to the GROBID server of Eindhoven University of Technology (TU/e) to be converted;"
+Say "  - a PDF is sent to the GROBID server of Eindhoven University of Technology (TU/e) to be converted,"
+Say "    or, when that server does not answer, to metacheck's server on SURF Research Cloud (the Netherlands);"
 Say "  - the power check uses no language model, or Mistral (EU) with your own API key."
 Say "Each part you add below does more on this computer instead. Press Enter for 'no'."
 
@@ -99,7 +100,8 @@ Say "Docker runs."
 
 # ---- GROBID -----------------------------------------------------------------
 Heading "2. GROBID on this computer (converts PDFs)"
-Say "Without it, a PDF is sent to TU/e's GROBID server (GDPR compliant) to be converted."
+Say "Without it, a PDF is sent to TU/e's GROBID server (GDPR compliant) to be converted, or, when"
+Say "that server does not answer, to metacheck's server on SURF Research Cloud."
 Say "With it, PDFs stay on this computer, but GROBID needs about 4 GB of memory more"
 Say "(a computer with 16 GB of memory; this one has $memGB GB)."
 $useGrobid = Ask "Install GROBID on this computer?" $Grobid
