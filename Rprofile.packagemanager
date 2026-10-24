@@ -1,0 +1,14 @@
+
+# metacheck Docker image: CRAN packages as ready-made Linux packages from
+# Posit's package manager, which sends them only when R names its version and
+# platform in this form (with R's default user agent it sends the source code,
+# which needs a compiler the image does not have). The reproducibility check
+# installs what a repository's code needs this way. Appended to R's base
+# profile, which every R process reads, also those that callr starts without
+# the site profile (the web interface's workers), and to the end of the site
+# profile, whose own CRAN address (Debian's) would otherwise replace it.
+local({
+  options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/noble/latest"))
+  options(HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(),
+    paste(getRversion(), R.version[["platform"]], R.version[["arch"]], R.version[["os"]])))
+})

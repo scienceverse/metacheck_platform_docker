@@ -1,0 +1,35 @@
+# The metacheck Docker installation: start it with `docker compose up` in the
+# folder with this file. What runs, and where PDFs and the language model's
+# text go, is set in the file .env next to it, which the installer writes (see
+# example.env):
+#   metacheck  the website, web interface and paper report app (always)
+#   grobid     GROBID on this computer (COMPOSE_PROFILES=grobid); without it,
+#              PDFs go to TU/e's GROBID server
+name: metacheck
+
+services:
+  metacheck:
+    image: ${METACHECK_IMAGE:-ghcr.io/scienceverse/metacheck_platform_docker:latest}
+    # reachable from this computer only, not from others on the network
+    ports:
+      - "127.0.0.1:${METACHECK_PORT:-3838}:3838"
+    env_file:
+      - path: .env
+        required: false
+    # Ollama on this computer, also on Linux, where Docker does not know this
+    # address by itself
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  grobid:
+    profiles: [grobid]
+    # the CRF-only GROBID (no deep-learning models), pinned by digest
+    image: grobid/grobid:0.9.1-crf@sha256:223957791ac2bbe48609dcc58a689b16b60baeae13a8734ef440ae6bfb38f4cd
+    init: true
+    # As on the SURF server (tasks/grobid.yml there): at most 6 GB, Java at
+    # half of it; with 4 GB, GROBID was stopped while converting a long paper.
+    mem_limit: 6g
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:MaxRAMPercentage=50
+    ulimits:
+      core: 0
